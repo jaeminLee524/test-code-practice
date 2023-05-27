@@ -1,7 +1,5 @@
 package sample.unit;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 import sample.unit.beverage.Americano;
 
