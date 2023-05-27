@@ -3,10 +3,13 @@ package sample.unit;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import sample.unit.beverage.Americano;
 import sample.unit.beverage.Latte;
+import sample.unit.order.Order;
 
 class CafeKioskTest {
 
@@ -73,5 +76,29 @@ class CafeKioskTest {
         cafeKiosk.clear();
         assertThat(cafeKiosk.getBeverageList()).hasSize(0);
         assertThat(cafeKiosk.getBeverageList()).isEmpty();
+    }
+
+    @Test
+    void createOrderWithCurrentTime() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+
+        cafeKiosk.add(americano);
+
+        Order order = cafeKiosk.createOrder(LocalDateTime.of(2023, 5, 27, 10, 0));
+        Assertions.assertThat(order.getBeverageList()).hasSize(1);
+        Assertions.assertThat(order.getBeverageList().get(0).getName()).isEqualTo("아메리카노");
+    }
+
+    @Test
+    void createOrderOutSideOpenTime() {
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+
+        cafeKiosk.add(americano);
+
+        assertThatThrownBy(() -> cafeKiosk.createOrder(LocalDateTime.of(2023, 5, 27, 9, 59)))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessage("주문 시간이 아닙니다. 관리자에게 문의하세요.");
     }
 }
