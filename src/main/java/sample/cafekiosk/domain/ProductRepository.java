@@ -10,4 +10,6 @@ import sample.cafekiosk.domain.product.ProductSellingType;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findAllBySellingTypeIn(List<ProductSellingType> forDisplay);
+
+    List<Product> findAllByProductNumberIn(List<String> productNumbers);
 }
