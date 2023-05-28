@@ -2,6 +2,8 @@ package sample.cafekiosk.api.service.order;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import sample.cafekiosk.api.controller.order.request.OrderCreateRequest;
@@ -22,13 +24,24 @@ public class OrderService {
         List<String> productNumbers = request.getProductNumbers();
 
         // find Products
-        List<Product> products = productRepository.findAllByProductNumberIn(productNumbers);
+        List<Product> duplicateProducts = findProductsBy(productNumbers);
 
         // create order
-        Order order = Order.create(products, registeredDateTime);
+        Order order = Order.create(duplicateProducts, registeredDateTime);
 
         Order savedOrder = orderRepository.save(order);
 
         return OrderResponse.of(savedOrder);
+    }
+
+    private List<Product> findProductsBy(List<String> productNumbers) {
+        List<Product> products = productRepository.findAllByProductNumberIn(productNumbers);
+
+        Map<String, Product> productMap = products.stream()
+            .collect(Collectors.toMap(product -> product.getProductNumber(), p -> p));
+
+        return productNumbers.stream()
+            .map(productMap::get)
+            .collect(Collectors.toList());
     }
 }

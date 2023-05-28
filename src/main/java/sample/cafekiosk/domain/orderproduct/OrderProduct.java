@@ -1,4 +1,4 @@
-package sample.cafekiosk.domain.order;
+package sample.cafekiosk.domain.orderproduct;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sample.cafekiosk.domain.order.Order;
 import sample.cafekiosk.domain.product.BaseEntity;
 import sample.cafekiosk.domain.product.Product;
 
