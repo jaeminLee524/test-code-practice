@@ -2,10 +2,12 @@ package sample.unit;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.byLessThan;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.unit.beverage.Americano;
 import sample.unit.beverage.Latte;
@@ -76,6 +78,24 @@ class CafeKioskTest {
         cafeKiosk.clear();
         assertThat(cafeKiosk.getBeverageList()).hasSize(0);
         assertThat(cafeKiosk.getBeverageList()).isEmpty();
+    }
+
+    @DisplayName("주문 목록에 담긴 상품들의 총 주문 금액을 계산할 수 있다.")
+    @Test
+    void calculateTotalCount() {
+        // given
+        CafeKiosk cafeKiosk = new CafeKiosk();
+        Americano americano = new Americano();
+        Latte latte = new Latte();
+
+        cafeKiosk.add(americano);
+        cafeKiosk.add(latte);
+
+        // when
+        int totalPrice = cafeKiosk.calculateTotalPrice();
+
+        // then
+        assertThat(totalPrice).isEqualTo(8500);
     }
 
     @Test
