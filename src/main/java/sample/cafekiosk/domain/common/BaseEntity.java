@@ -1,4 +1,4 @@
-package sample.cafekiosk.domain.product;
+package sample.cafekiosk.domain.common;
 
 import java.time.LocalDateTime;
 import javax.persistence.EntityListeners;

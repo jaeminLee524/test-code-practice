@@ -17,7 +17,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sample.cafekiosk.domain.orderproduct.OrderProduct;
-import sample.cafekiosk.domain.product.BaseEntity;
+import sample.cafekiosk.domain.common.BaseEntity;
 import sample.cafekiosk.domain.product.Product;
 
 @Getter
