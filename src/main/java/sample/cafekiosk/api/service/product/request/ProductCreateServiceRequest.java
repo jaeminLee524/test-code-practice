@@ -1,5 +1,8 @@
-package sample.cafekiosk.api.controller.product.dto;
+package sample.cafekiosk.api.service.product.request;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +12,7 @@ import sample.cafekiosk.domain.product.ProductType;
 
 @Getter
 @NoArgsConstructor
-public class ProductCreateRequest {
+public class ProductCreateServiceRequest {
 
     private ProductType type;
     private ProductSellingType sellingType;
@@ -17,7 +20,7 @@ public class ProductCreateRequest {
     private int price;
 
     @Builder
-    private ProductCreateRequest(ProductType type, ProductSellingType sellingType, String name, int price) {
+    private ProductCreateServiceRequest(ProductType type, ProductSellingType sellingType, String name, int price) {
         this.type = type;
         this.sellingType = sellingType;
         this.name = name;

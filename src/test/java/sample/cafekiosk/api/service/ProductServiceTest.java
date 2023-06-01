@@ -1,21 +1,19 @@
 package sample.cafekiosk.api.service;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static sample.cafekiosk.domain.product.ProductSellingType.HOLD;
 import static sample.cafekiosk.domain.product.ProductSellingType.SELLING;
 import static sample.cafekiosk.domain.product.ProductSellingType.STOP_SELLING;
 import static sample.cafekiosk.domain.product.ProductType.HANDMADE;
 
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import sample.cafekiosk.api.controller.product.dto.ProductCreateRequest;
+import sample.cafekiosk.api.controller.product.request.ProductCreateRequest;
 import sample.cafekiosk.api.service.product.ProductResponse;
 import sample.cafekiosk.domain.ProductRepository;
 import sample.cafekiosk.domain.product.Product;
@@ -55,18 +53,20 @@ class ProductServiceTest {
             .build();
 
         // when
-        ProductResponse productResponse = productService.createProducts(request);
+        ProductResponse productResponse = productService.createProducts(request.toServiceDto());
 
         // then
         assertThat(productResponse)
             .extracting("productNumber", "type", "sellingType", "name", "price")
-            .contains("004", request.getType(), request.getSellingType(), request.getName(), request.getPrice());
+            .contains("004", HANDMADE, SELLING, "카푸치노", 5000);
 
         List<Product> products = productRepository.findAll();
         assertThat(products).hasSize(4)
             .extracting("productNumber", "type", "sellingType", "name", "price")
             .containsExactlyInAnyOrder(
                 tuple("001", HANDMADE, SELLING, "아메리카노", 4000),
+                tuple("002", HANDMADE, HOLD, "카페라떼", 4500),
+                tuple("003", HANDMADE, STOP_SELLING, "팥빙수", 7000),
                 tuple("004", HANDMADE, SELLING, "카푸치노", 5000)
             );
 
@@ -84,7 +84,7 @@ class ProductServiceTest {
             .build();
 
         // when
-        ProductResponse productResponse = productService.createProducts(request);
+        ProductResponse productResponse = productService.createProducts(request.toServiceDto());
 
         // then
         assertThat(productResponse)
