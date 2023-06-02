@@ -3,16 +3,16 @@ package sample.cafekiosk.api.controller.product.request;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sample.cafekiosk.api.service.product.request.ProductCreateServiceRequest;
-import sample.cafekiosk.domain.product.Product;
 import sample.cafekiosk.domain.product.ProductSellingType;
 import sample.cafekiosk.domain.product.ProductType;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProductCreateRequest {
 
     @NotNull(message = "상품 타입은 필수입니다.")
