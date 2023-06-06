@@ -1,6 +1,6 @@
 package sample.cafekiosk.domain;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.groups.Tuple.tuple;
 import static sample.cafekiosk.domain.product.ProductSellingType.HOLD;
 import static sample.cafekiosk.domain.product.ProductSellingType.SELLING;
@@ -8,23 +8,25 @@ import static sample.cafekiosk.domain.product.ProductSellingType.STOP_SELLING;
 import static sample.cafekiosk.domain.product.ProductType.HANDMADE;
 
 import java.util.List;
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
+import sample.cafekiosk.IntegrationTestSupport;
 import sample.cafekiosk.domain.product.Product;
 import sample.cafekiosk.domain.product.ProductSellingType;
 import sample.cafekiosk.domain.product.ProductType;
 
-@ActiveProfiles("test")
-//@SpringBootTest
-@DataJpaTest
-class ProductRepositoryTest {
+//@DataJpaTest
+class ProductRepositoryTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @AfterEach
+    void tearDown() {
+        productRepository.deleteAllInBatch();
+    }
 
     @DisplayName("원하는 판매상태를 가진 상품들을 조회한다.")
     @Test

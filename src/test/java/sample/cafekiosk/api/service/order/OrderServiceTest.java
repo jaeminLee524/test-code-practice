@@ -14,8 +14,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import sample.cafekiosk.IntegrationTestSupport;
 import sample.cafekiosk.api.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.api.service.order.response.OrderResponse;
 import sample.cafekiosk.domain.ProductRepository;
@@ -26,11 +25,9 @@ import sample.cafekiosk.domain.product.Product;
 import sample.cafekiosk.domain.product.ProductType;
 import sample.cafekiosk.domain.stock.Stock;
 
-@ActiveProfiles("test")
-@SpringBootTest
 //@Transactional
 //@DataJpaTest
-class OrderServiceTest {
+class OrderServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private OrderService orderService;

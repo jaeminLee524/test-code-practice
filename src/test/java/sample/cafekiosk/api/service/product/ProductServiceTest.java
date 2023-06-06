@@ -1,4 +1,4 @@
-package sample.cafekiosk.api.service;
+package sample.cafekiosk.api.service.product;
 
 import static org.assertj.core.api.Assertions.*;
 import static sample.cafekiosk.domain.product.ProductSellingType.HOLD;
@@ -13,16 +13,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import sample.cafekiosk.IntegrationTestSupport;
 import sample.cafekiosk.api.controller.product.request.ProductCreateRequest;
+import sample.cafekiosk.api.service.ProductService;
 import sample.cafekiosk.api.service.product.ProductResponse;
 import sample.cafekiosk.domain.ProductRepository;
 import sample.cafekiosk.domain.product.Product;
 import sample.cafekiosk.domain.product.ProductSellingType;
 import sample.cafekiosk.domain.product.ProductType;
 
-@ActiveProfiles("test")
-@SpringBootTest
-class ProductServiceTest {
+class ProductServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductService productService;
