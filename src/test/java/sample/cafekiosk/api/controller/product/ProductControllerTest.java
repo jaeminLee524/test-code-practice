@@ -8,32 +8,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static sample.cafekiosk.domain.product.ProductSellingType.SELLING;
 import static sample.cafekiosk.domain.product.ProductType.HANDMADE;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import sample.cafekiosk.ControllerTestSupport;
 import sample.cafekiosk.api.controller.product.request.ProductCreateRequest;
-import sample.cafekiosk.api.service.ProductService;
 import sample.cafekiosk.api.service.product.ProductResponse;
 
-@WebMvcTest(controllers = ProductController.class)
-class ProductControllerTest {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    // bean으로 관뢰되고 있는 대상을 MockBean으로 생성해 Container 에서 관리
-    @MockBean
-    private ProductService productService;
+class ProductControllerTest extends ControllerTestSupport {
 
     @DisplayName("신규 상품을 등록한다.")
     @Test
