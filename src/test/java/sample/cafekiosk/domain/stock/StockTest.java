@@ -2,13 +2,39 @@ package sample.cafekiosk.domain.stock;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class StockTest {
+
+    private static final Stock stock = Stock.create("001", 1);
+
+    @DisplayName("가지고 있는 재고 수량이 요청받은 재고 수량보다 적은지 확인한다.")
+    @Test
+    void isQuantityLessThan2() {
+        // given
+        int quantity = 2;
+
+        // when
+        boolean result = stock.isQuantityLessThan(quantity);
+
+        // then
+        assertThat(result).isTrue();
+    }
+
+    @DisplayName("요청한 재고만큼 기존 재고 수량을 차감한다.")
+    @Test
+    void deductQuantity3() {
+        // given
+        int quantity = 1;
+
+        // when
+        stock.deductQuantity(quantity);
+
+        // then
+        assertThat(stock.getQuantity()).isZero();
+    }
 
     @DisplayName("가지고 있는 재고 수량이 요청받은 재고 수량보다 적은지 확인한다.")
     @Test
